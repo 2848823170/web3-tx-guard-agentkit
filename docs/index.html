@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; form-action 'none';" />
+  <title>web3-tx-guard-agentkit — Pre-Sign Firewall &amp; x402 Base USDC SDK Playground</title>
+  <style>
+    :root {
+      --bg: #050a14;
+      --card: #0c1628;
+      --elev: #13223b;
+      --ink: #f8fafc;
+      --muted: #94a3b8;
+      --emerald: #10b981;
+      --cyan: #38bdf8;
+      --amber: #fbbf24;
+      --red: #ef4444;
+      --border: rgba(148, 163, 184, 0.2);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, sans-serif;
+      background: radial-gradient(circle at 15% 0%, rgba(56, 189, 248, 0.15), transparent 40%), var(--bg);
+      color: var(--ink);
+      line-height: 1.6;
+    }
+    a { color: var(--cyan); text-decoration: none; }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+    header {
+      padding: 28px 0 22px;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px;
+    }
+    .pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+      font-size: 12px; font-weight: 700;
+      background: rgba(16, 185, 129, 0.14); color: #6ee7b7; border: 1px solid rgba(16, 185, 129, 0.35);
+      padding: 4px 10px; border-radius: 999px;
+    }
+    h1 { font-size: 30px; margin: 10px 0 6px; letter-spacing: -0.02em; }
+    .sub { color: var(--muted); max-width: 760px; margin: 0; font-size: 15px; }
+    .btn-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+    .btn {
+      display: inline-flex; align-items: center; padding: 9px 15px; border-radius: 9px;
+      font-size: 13.5px; font-weight: 700; border: 1px solid var(--border);
+      background: var(--elev); color: var(--ink); cursor: pointer;
+    }
+    .btn.primary { background: linear-gradient(135deg, var(--emerald), #059669); color: #02140d; border-color: transparent; }
+    .btn.amber { background: linear-gradient(135deg, #ffe600, #f59e0b); color: #0f172a; border-color: transparent; }
+
+    .grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 20px; margin: 28px 0 44px; }
+    .panel { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 20px; }
+    .panel h2 { margin: 0 0 12px; font-size: 18px; }
+    .tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+    .tab {
+      border: 1px solid var(--border); background: #08101f; color: var(--muted);
+      padding: 6px 11px; border-radius: 8px; font-size: 12.5px; font-weight: 700; cursor: pointer;
+    }
+    .tab.active { background: var(--cyan); color: #03131f; border-color: transparent; }
+    pre {
+      margin: 0; padding: 14px; border-radius: 10px; background: #040811;
+      border: 1px solid rgba(148, 163, 184, 0.16); overflow-x: auto;
+      font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 12.5px; color: #e2e8f0;
+    }
+    .verdict {
+      margin-top: 12px; padding: 12px 14px; border-radius: 10px; font-size: 13.5px; font-weight: 700;
+    }
+    .verdict.crit { background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.5); color: #fca5a5; }
+    .verdict.warn { background: rgba(251, 191, 36, 0.15); border: 1px solid rgba(251, 191, 36, 0.5); color: #fde68a; }
+    .verdict.safe { background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.5); color: #6ee7b7; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <span class="pill">MIT OPEN SOURCE · X402 BASE USDC ($0.01/CALL) · GLAMA GRADE A</span>
+        <h1>web3-tx-guard-agentkit</h1>
+        <p class="sub">Drop-in pre-sign calldata, multichain address &amp; EIP-712 firewall for <strong>Coinbase AgentKit</strong>, <strong>ElizaOS</strong>, <strong>GOAT SDK</strong>, and <strong>viem</strong>.</p>
+        <div class="btn-row">
+          <a class="btn primary" href="https://github.com/2848823170/web3-tx-guard-agentkit" target="_blank" rel="noopener">GitHub SDK Repo ↗</a>
+          <a class="btn amber" href="https://nick-ebony-forth-sic.trycloudflare.com/api/catalog" target="_blank" rel="noopener">Live x402 Gateway ($0.01 USDC) ↗</a>
+          <a class="btn" href="https://glama.ai/mcp/servers/2848823170/web3-tx-guard-mcp" target="_blank" rel="noopener">Glama Grade A MCP ↗</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="grid2">
+      <section class="panel">
+        <h2>1. Interactive Pre-Sign Firewall Simulator</h2>
+        <div class="tabs" id="scenarioTabs">
+          <button type="button" class="tab active" data-sc="seaport">Seaport 0-ETH Drain</button>
+          <button type="button" class="tab" data-sc="approve">Unlimited Approve</button>
+          <button type="button" class="tab" data-sc="ton">TON EQ Bounce Trap</button>
+          <button type="button" class="tab" data-sc="safe">Verified Base Transfer</button>
+        </div>
+        <pre id="simInput"></pre>
+        <div id="simVerdict" class="verdict crit"></div>
+      </section>
+
+      <section class="panel">
+        <h2>2. Drop-In Agent Framework Adapters</h2>
+        <div class="tabs" id="fwTabs">
+          <button type="button" class="tab active" data-fw="agentkit">Coinbase AgentKit + viem</button>
+          <button type="button" class="tab" data-fw="eliza">ElizaOS Plugin</button>
+          <button type="button" class="tab" data-fw="goat">GOAT SDK</button>
+        </div>
+        <pre id="fwCode"></pre>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var scenarios = {
+        seaport: {
+          input: 'signTypedData({\n  primaryType: "OrderComponents",\n  message: {\n    offer: [{ token: "0xBC4CA0...", startAmount: "1" }],\n    consideration: [{ recipient: "0xAttacker...", startAmount: "0" }]\n  }\n})',
+          cls: "verdict crit",
+          msg: "🛑 TxGuardBlockedError [CRITICAL]: Seaport OrderComponents phishing drain — offer transfers NFT while offerer receives 0 consideration. Private key was NOT invoked."
+        },
+        approve: {
+          input: 'sendTransaction({\n  to: "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",\n  data: "0x095ea7b3...ffffffffffffffffffffffffffffffff"\n})',
+          cls: "verdict crit",
+          msg: "🛑 TxGuardBlockedError [CRITICAL]: Unlimited ERC-20 token approval (>= 2^255) granted to unverified spender. Blocked before signing."
+        },
+        ton: {
+          input: 'validateAddress({\n  address: "EQAe3nzr65L7AOaFr5Q2_Ag7XpuAIXijA-qMdDdeJ-57yOo9",\n  chain: "ton"\n})',
+          cls: "verdict warn",
+          msg: "⚠️ MEDIUM RISK: Valid CRC16-XMODEM checksum, but bounceable EQ... tag will bounce transfers to uninitialized user wallets minus gas. Convert to UQ... first."
+        },
+        safe: {
+          input: 'sendTransaction({\n  to: "0xfEbDbB880C7f323c145d61683874a45540208a68",\n  value: "1000000000000000",\n  data: "0x"\n})',
+          cls: "verdict safe",
+          msg: "✅ SAFE TO EXECUTE [LOW]: Keccak-256 EIP-55 checksum verified, non-burn recipient, clean calldata. Forwarded to wallet signer."
+        }
+      };
+
+      var frameworks = {
+        agentkit: 'import { TxGuardX402Client, wrapWalletWithTxGuard, createCoinbaseAgentKitActions } from "web3-tx-guard-agentkit";\n\nconst guard = new TxGuardX402Client({ maxAtomicUsdcPerCall: 20000n });\nconst safeWallet = wrapWalletWithTxGuard(viemWalletClient, guard);\nconst actionProvider = createCoinbaseAgentKitActions(guard);',
+        eliza: 'import { TxGuardX402Client, createElizaOsPlugin } from "web3-tx-guard-agentkit";\n\nexport const character = {\n  name: "DeFiTreasuryAgent",\n  plugins: [createElizaOsPlugin(new TxGuardX402Client())]\n};',
+        goat: 'import { TxGuardX402Client, createGoatPlugin } from "web3-tx-guard-agentkit";\nimport { getOnChainTools } from "@goat-sdk/adapter-vercel-ai";\n\nconst tools = await getOnChainTools({\n  wallet,\n  plugins: [createGoatPlugin(new TxGuardX402Client())]\n});'
+      };
+
+      function setScenario(key) {
+        var s = scenarios[key];
+        document.getElementById("simInput").textContent = s.input;
+        var v = document.getElementById("simVerdict");
+        v.className = s.cls;
+        v.textContent = s.msg;
+      }
+      function setFw(key) {
+        document.getElementById("fwCode").textContent = frameworks[key];
+      }
+
+      document.getElementById("scenarioTabs").addEventListener("click", function (e) {
+        var b = e.target.closest("button[data-sc]");
+        if (!b) return;
+        document.querySelectorAll("#scenarioTabs .tab").forEach(function (el) { el.classList.remove("active"); });
+        b.classList.add("active");
+        setScenario(b.getAttribute("data-sc"));
+      });
+      document.getElementById("fwTabs").addEventListener("click", function (e) {
+        var b = e.target.closest("button[data-fw]");
+        if (!b) return;
+        document.querySelectorAll("#fwTabs .tab").forEach(function (el) { el.classList.remove("active"); });
+        b.classList.add("active");
+        setFw(b.getAttribute("data-fw"));
+      });
+
+      setScenario("seaport");
+      setFw("agentkit");
+    })();
+  </script>
+</body>
+</html>

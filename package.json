@@ -1,0 +1,41 @@
+{
+  "name": "web3-tx-guard-agentkit",
+  "version": "1.0.0",
+  "description": "Pre-execution Web3 transaction, EVM calldata & EIP-712 firewall SDK + native x402 Base USDC client for Coinbase AgentKit, ElizaOS, GOAT SDK, and viem.",
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "main": "./src/index.mjs",
+  "types": "./src/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./src/index.d.ts",
+      "default": "./src/index.mjs"
+    },
+    "./x402": "./src/x402-client.mjs",
+    "./adapters": "./src/adapters.mjs"
+  },
+  "scripts": {
+    "test": "node --test ./tests/sdk.test.mjs"
+  },
+  "keywords": [
+    "web3",
+    "x402",
+    "base",
+    "usdc",
+    "coinbase-agentkit",
+    "agentkit",
+    "elizaos",
+    "goat-sdk",
+    "viem",
+    "mcp",
+    "eip-712",
+    "permit2",
+    "seaport",
+    "calldata",
+    "security",
+    "ai-agents"
+  ]
+}
