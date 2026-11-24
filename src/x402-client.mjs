@@ -2,7 +2,9 @@ import crypto from "node:crypto";
 import { localValidateAddress, localAuditCalldata, localAuditEip712 } from "./crypto-lite.mjs";
 
 export const BASE_MAINNET_USDC = "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913";
-export const DEFAULT_X402_GATEWAY = "https://nick-ebony-forth-sic.trycloudflare.com";
+export const DEFAULT_X402_GATEWAY = "https://x402-web3-fin-gateway.vercel.app";
+export const DEFAULT_X402_GATEWAY_URL = DEFAULT_X402_GATEWAY;
+export const FALLBACK_X402_GATEWAY_URL = "https://nick-ebony-forth-sic.trycloudflare.com";
 export const DEFAULT_MCPIZE_URL = "https://docuclean-ledger-mcp.mcpize.run/mcp";
 export const OFFICIAL_TREASURY_PAYTO = "0xfEbDbB880C7f323c145d61683874a45540208a68";
 

@@ -1,11 +1,13 @@
 # `web3-tx-guard-agentkit` — Pre-Sign Firewall & `x402` Base `USDC` SDK for Web3 Agents
 
 [![CI](https://github.com/2848823170/web3-tx-guard-agentkit/actions/workflows/ci.yml/badge.svg)](https://github.com/2848823170/web3-tx-guard-agentkit/actions)
+[![Indexed on x402scan](https://img.shields.io/badge/x402scan-Indexed_v2_(10_Resources)-06b6d4)](https://www.x402scan.com/server/51881708-6ade-4170-a4d2-4cab8db3652a)
 
 **Zero-dependency pre-execution transaction, calldata & EIP-712 signature firewall for `Coinbase AgentKit`, `ElizaOS`, `GOAT SDK`, and `viem` — powered by native `x402` Base Mainnet `USDC` (`$0.01/call`) + deterministic offline cryptographic fallback.**
 
 - **Interactive Playground & Live Policy Simulator**: **[https://2848823170.github.io/web3-tx-guard-agentkit/](https://2848823170.github.io/web3-tx-guard-agentkit/)**
-- **Live `x402` Base `USDC` Gateway (`0%` middleman fee)**: `https://nick-ebony-forth-sic.trycloudflare.com` ([OpenAPI 3.1](https://nick-ebony-forth-sic.trycloudflare.com/openapi.json) · [x402 Manifest](https://nick-ebony-forth-sic.trycloudflare.com/.well-known/x402.json))
+- **Live Browser Rug & Calldata Shield DApp**: **[https://2848823170.github.io/web3-rug-shield/](https://2848823170.github.io/web3-rug-shield/)**
+- **Primary Immortal `x402` Base `USDC` Gateway (`0%` middleman fee)**: **`https://x402-web3-fin-gateway.vercel.app`** ([x402scan Verified v2](https://www.x402scan.com/server/51881708-6ade-4170-a4d2-4cab8db3652a) · [OpenAPI 3.1](https://x402-web3-fin-gateway.vercel.app/openapi.json) · [x402 Manifest](https://x402-web3-fin-gateway.vercel.app/.well-known/x402.json) · Secondary Cloud Node: `https://nick-ebony-forth-sic.trycloudflare.com`)
 - **Hosted MCP Servers**: [Glama Grade-A `web3-tx-guard-mcp`](https://glama.ai/mcp/servers/2848823170/web3-tx-guard-mcp) · [MCPize 6-Tool `x402` Server](https://mcpize.com/mcp/docuclean-ledger-mcp)
 
 ---

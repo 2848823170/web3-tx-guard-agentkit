@@ -1,5 +1,7 @@
 export declare const BASE_MAINNET_USDC: string;
 export declare const DEFAULT_X402_GATEWAY: string;
+export declare const DEFAULT_X402_GATEWAY_URL: string;
+export declare const FALLBACK_X402_GATEWAY_URL: string;
 export declare const DEFAULT_MCPIZE_URL: string;
 export declare const OFFICIAL_TREASURY_PAYTO: string;
 
